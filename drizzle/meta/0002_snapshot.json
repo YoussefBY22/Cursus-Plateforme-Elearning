@@ -1,0 +1,4606 @@
+{
+  "id": "179d267f-7c52-4b01-88a5-5d18ee9bec6b",
+  "prevId": "875bf0fb-c331-46c5-995f-282c6131acb8",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.activite_jour": {
+      "name": "activite_jour",
+      "schema": "",
+      "columns": {
+        "utilisateur_id": {
+          "name": "utilisateur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "jour": {
+          "name": "jour",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "secondes": {
+          "name": "secondes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "activite_jour_utilisateur_id_utilisateur_id_fk": {
+          "name": "activite_jour_utilisateur_id_utilisateur_id_fk",
+          "tableFrom": "activite_jour",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "activite_jour_utilisateur_id_jour_pk": {
+          "name": "activite_jour_utilisateur_id_jour_pk",
+          "columns": [
+            "utilisateur_id",
+            "jour"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.auto_evaluation": {
+      "name": "auto_evaluation",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "utilisateur_id": {
+          "name": "utilisateur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "domaine_id": {
+          "name": "domaine_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "contexte": {
+          "name": "contexte",
+          "type": "contexte_auto_evaluation",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'INITIALE'"
+        },
+        "formation_id": {
+          "name": "formation_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "participation_externe_id": {
+          "name": "participation_externe_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "secondes_par_question": {
+          "name": "secondes_par_question",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 10
+        },
+        "demarree_le": {
+          "name": "demarree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "terminee_le": {
+          "name": "terminee_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "auto_eval_utilisateur_domaine_idx": {
+          "name": "auto_eval_utilisateur_domaine_idx",
+          "columns": [
+            {
+              "expression": "utilisateur_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "domaine_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "auto_evaluation_utilisateur_id_utilisateur_id_fk": {
+          "name": "auto_evaluation_utilisateur_id_utilisateur_id_fk",
+          "tableFrom": "auto_evaluation",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "auto_evaluation_domaine_id_domaine_id_fk": {
+          "name": "auto_evaluation_domaine_id_domaine_id_fk",
+          "tableFrom": "auto_evaluation",
+          "tableTo": "domaine",
+          "columnsFrom": [
+            "domaine_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.badge": {
+      "name": "badge",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "code": {
+          "name": "code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nom": {
+          "name": "nom",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "couleur": {
+          "name": "couleur",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "forme": {
+          "name": "forme",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'ROND'"
+        },
+        "matiere": {
+          "name": "matiere",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'BRONZE'"
+        },
+        "rarete": {
+          "name": "rarete",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'COMMUN'"
+        },
+        "effet": {
+          "name": "effet",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'AUCUN'"
+        },
+        "icone": {
+          "name": "icone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'Award'"
+        },
+        "critere_code": {
+          "name": "critere_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "seuil": {
+          "name": "seuil",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "parametre": {
+          "name": "parametre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "xp_bonus": {
+          "name": "xp_bonus",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "secret": {
+          "name": "secret",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "actif": {
+          "name": "actif",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "ordre": {
+          "name": "ordre",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "badge_critere_code_critere_badge_code_fk": {
+          "name": "badge_critere_code_critere_badge_code_fk",
+          "tableFrom": "badge",
+          "tableTo": "critere_badge",
+          "columnsFrom": [
+            "critere_code"
+          ],
+          "columnsTo": [
+            "code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "badge_code_unique": {
+          "name": "badge_code_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "code"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.badge_obtenu": {
+      "name": "badge_obtenu",
+      "schema": "",
+      "columns": {
+        "utilisateur_id": {
+          "name": "utilisateur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "badge_id": {
+          "name": "badge_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "obtenu_le": {
+          "name": "obtenu_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "celebre": {
+          "name": "celebre",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "badge_obtenu_utilisateur_id_utilisateur_id_fk": {
+          "name": "badge_obtenu_utilisateur_id_utilisateur_id_fk",
+          "tableFrom": "badge_obtenu",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "badge_obtenu_badge_id_badge_id_fk": {
+          "name": "badge_obtenu_badge_id_badge_id_fk",
+          "tableFrom": "badge_obtenu",
+          "tableTo": "badge",
+          "columnsFrom": [
+            "badge_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "badge_obtenu_utilisateur_id_badge_id_pk": {
+          "name": "badge_obtenu_utilisateur_id_badge_id_pk",
+          "columns": [
+            "utilisateur_id",
+            "badge_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.certificat": {
+      "name": "certificat",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "numero": {
+          "name": "numero",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "jeton": {
+          "name": "jeton",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "utilisateur_id": {
+          "name": "utilisateur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "parcours_id": {
+          "name": "parcours_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "modele_id": {
+          "name": "modele_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "donnees": {
+          "name": "donnees",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "canevas": {
+          "name": "canevas",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "couleur_theme": {
+          "name": "couleur_theme",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "emis_le": {
+          "name": "emis_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "revoque_le": {
+          "name": "revoque_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "motif_revocation": {
+          "name": "motif_revocation",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "revoque_par_id": {
+          "name": "revoque_par_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "consultations": {
+          "name": "consultations",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {
+        "certificat_uq": {
+          "name": "certificat_uq",
+          "columns": [
+            {
+              "expression": "utilisateur_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "parcours_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "certificat_utilisateur_id_utilisateur_id_fk": {
+          "name": "certificat_utilisateur_id_utilisateur_id_fk",
+          "tableFrom": "certificat",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "certificat_parcours_id_parcours_id_fk": {
+          "name": "certificat_parcours_id_parcours_id_fk",
+          "tableFrom": "certificat",
+          "tableTo": "parcours",
+          "columnsFrom": [
+            "parcours_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "certificat_modele_id_modele_certificat_id_fk": {
+          "name": "certificat_modele_id_modele_certificat_id_fk",
+          "tableFrom": "certificat",
+          "tableTo": "modele_certificat",
+          "columnsFrom": [
+            "modele_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "certificat_numero_unique": {
+          "name": "certificat_numero_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "numero"
+          ]
+        },
+        "certificat_jeton_unique": {
+          "name": "certificat_jeton_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "jeton"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.commentaire": {
+      "name": "commentaire",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "formation_id": {
+          "name": "formation_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "auteur_id": {
+          "name": "auteur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "parent_id": {
+          "name": "parent_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "texte": {
+          "name": "texte",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "masque": {
+          "name": "masque",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "commentaire_formation_idx": {
+          "name": "commentaire_formation_idx",
+          "columns": [
+            {
+              "expression": "formation_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "cree_le",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "commentaire_formation_id_formation_id_fk": {
+          "name": "commentaire_formation_id_formation_id_fk",
+          "tableFrom": "commentaire",
+          "tableTo": "formation",
+          "columnsFrom": [
+            "formation_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "commentaire_auteur_id_utilisateur_id_fk": {
+          "name": "commentaire_auteur_id_utilisateur_id_fk",
+          "tableFrom": "commentaire",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "auteur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.competence": {
+      "name": "competence",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "code": {
+          "name": "code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nom": {
+          "name": "nom",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "question": {
+          "name": "question",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pistes": {
+          "name": "pistes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "domaine_id": {
+          "name": "domaine_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "je_id": {
+          "name": "je_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "source_id": {
+          "name": "source_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ordre": {
+          "name": "ordre",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "active": {
+          "name": "active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        }
+      },
+      "indexes": {
+        "competence_domaine_idx": {
+          "name": "competence_domaine_idx",
+          "columns": [
+            {
+              "expression": "domaine_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "competence_domaine_id_domaine_id_fk": {
+          "name": "competence_domaine_id_domaine_id_fk",
+          "tableFrom": "competence",
+          "tableTo": "domaine",
+          "columnsFrom": [
+            "domaine_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "competence_je_id_junior_entreprise_id_fk": {
+          "name": "competence_je_id_junior_entreprise_id_fk",
+          "tableFrom": "competence",
+          "tableTo": "junior_entreprise",
+          "columnsFrom": [
+            "je_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "competence_code_je_uq": {
+          "name": "competence_code_je_uq",
+          "nullsNotDistinct": true,
+          "columns": [
+            "code",
+            "je_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.critere_badge": {
+      "name": "critere_badge",
+      "schema": "",
+      "columns": {
+        "code": {
+          "name": "code",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "libelle": {
+          "name": "libelle",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "unite": {
+          "name": "unite",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "parametre": {
+          "name": "parametre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'AUCUN'"
+        },
+        "ordre": {
+          "name": "ordre",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.demande_formation": {
+      "name": "demande_formation",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "titre": {
+          "name": "titre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "domaine_id": {
+          "name": "domaine_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "demandeur_id": {
+          "name": "demandeur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "je_id": {
+          "name": "je_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "statut": {
+          "name": "statut",
+          "type": "statut_demande",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'OUVERTE'"
+        },
+        "reponse": {
+          "name": "reponse",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "formation_id": {
+          "name": "formation_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "traite_par_id": {
+          "name": "traite_par_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "traite_le": {
+          "name": "traite_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "maj_le": {
+          "name": "maj_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "demande_formation_statut_idx": {
+          "name": "demande_formation_statut_idx",
+          "columns": [
+            {
+              "expression": "statut",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "domaine_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "demande_formation_domaine_id_domaine_id_fk": {
+          "name": "demande_formation_domaine_id_domaine_id_fk",
+          "tableFrom": "demande_formation",
+          "tableTo": "domaine",
+          "columnsFrom": [
+            "domaine_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "demande_formation_demandeur_id_utilisateur_id_fk": {
+          "name": "demande_formation_demandeur_id_utilisateur_id_fk",
+          "tableFrom": "demande_formation",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "demandeur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "demande_formation_je_id_junior_entreprise_id_fk": {
+          "name": "demande_formation_je_id_junior_entreprise_id_fk",
+          "tableFrom": "demande_formation",
+          "tableTo": "junior_entreprise",
+          "columnsFrom": [
+            "je_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "demande_formation_formation_id_formation_id_fk": {
+          "name": "demande_formation_formation_id_formation_id_fk",
+          "tableFrom": "demande_formation",
+          "tableTo": "formation",
+          "columnsFrom": [
+            "formation_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "demande_formation_traite_par_id_utilisateur_id_fk": {
+          "name": "demande_formation_traite_par_id_utilisateur_id_fk",
+          "tableFrom": "demande_formation",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "traite_par_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.domaine": {
+      "name": "domaine",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "code": {
+          "name": "code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nom": {
+          "name": "nom",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "couleur": {
+          "name": "couleur",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "icone": {
+          "name": "icone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'Sparkles'"
+        },
+        "ordre": {
+          "name": "ordre",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "domaine_code_unique": {
+          "name": "domaine_code_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "code"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.enquete": {
+      "name": "enquete",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "utilisateur_id": {
+          "name": "utilisateur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "formation_id": {
+          "name": "formation_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "type_enquete",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "note_contenu": {
+          "name": "note_contenu",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "note_formateur": {
+          "name": "note_formateur",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "recommandation": {
+          "name": "recommandation",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "note_specifique": {
+          "name": "note_specifique",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reevaluation": {
+          "name": "reevaluation",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::jsonb"
+        },
+        "commentaire": {
+          "name": "commentaire",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "enquete_uq": {
+          "name": "enquete_uq",
+          "columns": [
+            {
+              "expression": "utilisateur_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "formation_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "type",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "enquete_utilisateur_id_utilisateur_id_fk": {
+          "name": "enquete_utilisateur_id_utilisateur_id_fk",
+          "tableFrom": "enquete",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "enquete_formation_id_formation_id_fk": {
+          "name": "enquete_formation_id_formation_id_fk",
+          "tableFrom": "enquete",
+          "tableTo": "formation",
+          "columnsFrom": [
+            "formation_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.etape_historique_je": {
+      "name": "etape_historique_je",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "utilisateur_id": {
+          "name": "utilisateur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "annee": {
+          "name": "annee",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "annee_fin": {
+          "name": "annee_fin",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "poste": {
+          "name": "poste",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "organisation": {
+          "name": "organisation",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "historique_je_utilisateur_idx": {
+          "name": "historique_je_utilisateur_idx",
+          "columns": [
+            {
+              "expression": "utilisateur_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "etape_historique_je_utilisateur_id_utilisateur_id_fk": {
+          "name": "etape_historique_je_utilisateur_id_utilisateur_id_fk",
+          "tableFrom": "etape_historique_je",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.etape_parcours": {
+      "name": "etape_parcours",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "parcours_id": {
+          "name": "parcours_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "formation_id": {
+          "name": "formation_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ordre": {
+          "name": "ordre",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "titre": {
+          "name": "titre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "etape_parcours_uq": {
+          "name": "etape_parcours_uq",
+          "columns": [
+            {
+              "expression": "parcours_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "ordre",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "etape_parcours_parcours_id_parcours_id_fk": {
+          "name": "etape_parcours_parcours_id_parcours_id_fk",
+          "tableFrom": "etape_parcours",
+          "tableTo": "parcours",
+          "columnsFrom": [
+            "parcours_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "etape_parcours_formation_id_formation_id_fk": {
+          "name": "etape_parcours_formation_id_formation_id_fk",
+          "tableFrom": "etape_parcours",
+          "tableTo": "formation",
+          "columnsFrom": [
+            "formation_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.evenement_xp": {
+      "name": "evenement_xp",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "utilisateur_id": {
+          "name": "utilisateur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ref_id": {
+          "name": "ref_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "points": {
+          "name": "points",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "libelle": {
+          "name": "libelle",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "evenement_xp_uq": {
+          "name": "evenement_xp_uq",
+          "columns": [
+            {
+              "expression": "utilisateur_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "type",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "ref_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "evenement_xp_utilisateur_id_utilisateur_id_fk": {
+          "name": "evenement_xp_utilisateur_id_utilisateur_id_fk",
+          "tableFrom": "evenement_xp",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.fichier": {
+      "name": "fichier",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nom": {
+          "name": "nom",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "taille": {
+          "name": "taille",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "chemin": {
+          "name": "chemin",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contenu": {
+          "name": "contenu",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cree_par_id": {
+          "name": "cree_par_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.formation": {
+      "name": "formation",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "titre": {
+          "name": "titre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "resume": {
+          "name": "resume",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "objectifs": {
+          "name": "objectifs",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "ARRAY[]::text[]"
+        },
+        "domaine_id": {
+          "name": "domaine_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "niveau": {
+          "name": "niveau",
+          "type": "niveau_formation",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'DEBUTANT'"
+        },
+        "image_url": {
+          "name": "image_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fournisseur_video": {
+          "name": "fournisseur_video",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'YOUTUBE'"
+        },
+        "reference_video": {
+          "name": "reference_video",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "duree_sec": {
+          "name": "duree_sec",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "auteur_id": {
+          "name": "auteur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "formateur_id": {
+          "name": "formateur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "statut": {
+          "name": "statut",
+          "type": "statut_contenu",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'BROUILLON'"
+        },
+        "visible_catalogue": {
+          "name": "visible_catalogue",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "motif_refus": {
+          "name": "motif_refus",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "soumis_le": {
+          "name": "soumis_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "publie_le": {
+          "name": "publie_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "valide_par_id": {
+          "name": "valide_par_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tags": {
+          "name": "tags",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "ARRAY[]::text[]"
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "maj_le": {
+          "name": "maj_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "formation_statut_domaine_idx": {
+          "name": "formation_statut_domaine_idx",
+          "columns": [
+            {
+              "expression": "statut",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "domaine_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "formation_domaine_id_domaine_id_fk": {
+          "name": "formation_domaine_id_domaine_id_fk",
+          "tableFrom": "formation",
+          "tableTo": "domaine",
+          "columnsFrom": [
+            "domaine_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "formation_auteur_id_utilisateur_id_fk": {
+          "name": "formation_auteur_id_utilisateur_id_fk",
+          "tableFrom": "formation",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "auteur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "formation_formateur_id_utilisateur_id_fk": {
+          "name": "formation_formateur_id_utilisateur_id_fk",
+          "tableFrom": "formation",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "formateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "formation_slug_unique": {
+          "name": "formation_slug_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "slug"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.formation_competence": {
+      "name": "formation_competence",
+      "schema": "",
+      "columns": {
+        "formation_id": {
+          "name": "formation_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "competence_id": {
+          "name": "competence_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "poids": {
+          "name": "poids",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "formation_competence_formation_id_formation_id_fk": {
+          "name": "formation_competence_formation_id_formation_id_fk",
+          "tableFrom": "formation_competence",
+          "tableTo": "formation",
+          "columnsFrom": [
+            "formation_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "formation_competence_competence_id_competence_id_fk": {
+          "name": "formation_competence_competence_id_competence_id_fk",
+          "tableFrom": "formation_competence",
+          "tableTo": "competence",
+          "columnsFrom": [
+            "competence_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "formation_competence_formation_id_competence_id_pk": {
+          "name": "formation_competence_formation_id_competence_id_pk",
+          "columns": [
+            "formation_id",
+            "competence_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.formation_externe": {
+      "name": "formation_externe",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "je_id": {
+          "name": "je_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "domaine_id": {
+          "name": "domaine_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "titre": {
+          "name": "titre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "formateur_interne": {
+          "name": "formateur_interne",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date": {
+          "name": "date",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "duree_heures": {
+          "name": "duree_heures",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 2
+        },
+        "cree_par_id": {
+          "name": "cree_par_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "statut": {
+          "name": "statut",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'OUVERTE'"
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "formation_externe_je_id_junior_entreprise_id_fk": {
+          "name": "formation_externe_je_id_junior_entreprise_id_fk",
+          "tableFrom": "formation_externe",
+          "tableTo": "junior_entreprise",
+          "columnsFrom": [
+            "je_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "formation_externe_domaine_id_domaine_id_fk": {
+          "name": "formation_externe_domaine_id_domaine_id_fk",
+          "tableFrom": "formation_externe",
+          "tableTo": "domaine",
+          "columnsFrom": [
+            "domaine_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.formation_externe_competence": {
+      "name": "formation_externe_competence",
+      "schema": "",
+      "columns": {
+        "formation_externe_id": {
+          "name": "formation_externe_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "competence_id": {
+          "name": "competence_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "formation_externe_competence_formation_externe_id_formation_externe_id_fk": {
+          "name": "formation_externe_competence_formation_externe_id_formation_externe_id_fk",
+          "tableFrom": "formation_externe_competence",
+          "tableTo": "formation_externe",
+          "columnsFrom": [
+            "formation_externe_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "formation_externe_competence_competence_id_competence_id_fk": {
+          "name": "formation_externe_competence_competence_id_competence_id_fk",
+          "tableFrom": "formation_externe_competence",
+          "tableTo": "competence",
+          "columnsFrom": [
+            "competence_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "formation_externe_competence_formation_externe_id_competence_id_pk": {
+          "name": "formation_externe_competence_formation_externe_id_competence_id_pk",
+          "columns": [
+            "formation_externe_id",
+            "competence_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.gain_formation": {
+      "name": "gain_formation",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "utilisateur_id": {
+          "name": "utilisateur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "competence_id": {
+          "name": "competence_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "formation_id": {
+          "name": "formation_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "formation_externe_id": {
+          "name": "formation_externe_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "niveau_avant": {
+          "name": "niveau_avant",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "niveau_observe": {
+          "name": "niveau_observe",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "gain_total": {
+          "name": "gain_total",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "gain_applique": {
+          "name": "gain_applique",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "gain_en_attente": {
+          "name": "gain_en_attente",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "detail": {
+          "name": "detail",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "consolide_le": {
+          "name": "consolide_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "gain_formation_uq": {
+          "name": "gain_formation_uq",
+          "columns": [
+            {
+              "expression": "utilisateur_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "competence_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "formation_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "gain_externe_uq": {
+          "name": "gain_externe_uq",
+          "columns": [
+            {
+              "expression": "utilisateur_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "competence_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "formation_externe_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "gain_formation_utilisateur_id_utilisateur_id_fk": {
+          "name": "gain_formation_utilisateur_id_utilisateur_id_fk",
+          "tableFrom": "gain_formation",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "gain_formation_competence_id_competence_id_fk": {
+          "name": "gain_formation_competence_id_competence_id_fk",
+          "tableFrom": "gain_formation",
+          "tableTo": "competence",
+          "columnsFrom": [
+            "competence_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.historique_niveau": {
+      "name": "historique_niveau",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "utilisateur_id": {
+          "name": "utilisateur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "competence_id": {
+          "name": "competence_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "niveau": {
+          "name": "niveau",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "variation": {
+          "name": "variation",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "source": {
+          "name": "source",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ref_id": {
+          "name": "ref_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "libelle": {
+          "name": "libelle",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "historique_niveau_idx": {
+          "name": "historique_niveau_idx",
+          "columns": [
+            {
+              "expression": "utilisateur_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "competence_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "cree_le",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "historique_niveau_utilisateur_id_utilisateur_id_fk": {
+          "name": "historique_niveau_utilisateur_id_utilisateur_id_fk",
+          "tableFrom": "historique_niveau",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "historique_niveau_competence_id_competence_id_fk": {
+          "name": "historique_niveau_competence_id_competence_id_fk",
+          "tableFrom": "historique_niveau",
+          "tableTo": "competence",
+          "columnsFrom": [
+            "competence_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.inscription_parcours": {
+      "name": "inscription_parcours",
+      "schema": "",
+      "columns": {
+        "utilisateur_id": {
+          "name": "utilisateur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "parcours_id": {
+          "name": "parcours_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "demarre_le": {
+          "name": "demarre_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "termine_le": {
+          "name": "termine_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "inscription_parcours_utilisateur_id_utilisateur_id_fk": {
+          "name": "inscription_parcours_utilisateur_id_utilisateur_id_fk",
+          "tableFrom": "inscription_parcours",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "inscription_parcours_parcours_id_parcours_id_fk": {
+          "name": "inscription_parcours_parcours_id_parcours_id_fk",
+          "tableFrom": "inscription_parcours",
+          "tableTo": "parcours",
+          "columnsFrom": [
+            "parcours_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "inscription_parcours_utilisateur_id_parcours_id_pk": {
+          "name": "inscription_parcours_utilisateur_id_parcours_id_pk",
+          "columns": [
+            "utilisateur_id",
+            "parcours_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.jeton_verification": {
+      "name": "jeton_verification",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "utilisateur_id": {
+          "name": "utilisateur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "empreinte": {
+          "name": "empreinte",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'EMAIL'"
+        },
+        "expire_le": {
+          "name": "expire_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "utilise_le": {
+          "name": "utilise_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "jeton_verification_utilisateur_id_utilisateur_id_fk": {
+          "name": "jeton_verification_utilisateur_id_utilisateur_id_fk",
+          "tableFrom": "jeton_verification",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "jeton_verification_empreinte_unique": {
+          "name": "jeton_verification_empreinte_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "empreinte"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.journal": {
+      "name": "journal",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "acteur_id": {
+          "name": "acteur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "action": {
+          "name": "action",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "entite": {
+          "name": "entite",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "entite_id": {
+          "name": "entite_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "details": {
+          "name": "details",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::jsonb"
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "journal_entite_idx": {
+          "name": "journal_entite_idx",
+          "columns": [
+            {
+              "expression": "entite",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "entite_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "journal_acteur_id_utilisateur_id_fk": {
+          "name": "journal_acteur_id_utilisateur_id_fk",
+          "tableFrom": "journal",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "acteur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.junior_entreprise": {
+      "name": "junior_entreprise",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nom": {
+          "name": "nom",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sigle": {
+          "name": "sigle",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ville": {
+          "name": "ville",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ecole": {
+          "name": "ecole",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "couleur": {
+          "name": "couleur",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'#052931'"
+        },
+        "logo_url": {
+          "name": "logo_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "active": {
+          "name": "active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "charge_suivi_id": {
+          "name": "charge_suivi_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "junior_entreprise_slug_unique": {
+          "name": "junior_entreprise_slug_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "slug"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.like_commentaire": {
+      "name": "like_commentaire",
+      "schema": "",
+      "columns": {
+        "commentaire_id": {
+          "name": "commentaire_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "utilisateur_id": {
+          "name": "utilisateur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "like_commentaire_commentaire_id_commentaire_id_fk": {
+          "name": "like_commentaire_commentaire_id_commentaire_id_fk",
+          "tableFrom": "like_commentaire",
+          "tableTo": "commentaire",
+          "columnsFrom": [
+            "commentaire_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "like_commentaire_utilisateur_id_utilisateur_id_fk": {
+          "name": "like_commentaire_utilisateur_id_utilisateur_id_fk",
+          "tableFrom": "like_commentaire",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "like_commentaire_commentaire_id_utilisateur_id_pk": {
+          "name": "like_commentaire_commentaire_id_utilisateur_id_pk",
+          "columns": [
+            "commentaire_id",
+            "utilisateur_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.modele_certificat": {
+      "name": "modele_certificat",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nom": {
+          "name": "nom",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "domaine_id": {
+          "name": "domaine_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "couleur_theme": {
+          "name": "couleur_theme",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'#E30719'"
+        },
+        "canevas": {
+          "name": "canevas",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "par_defaut": {
+          "name": "par_defaut",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "images": {
+          "name": "images",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "archive": {
+          "name": "archive",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "maj_le": {
+          "name": "maj_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "modele_certificat_domaine_id_domaine_id_fk": {
+          "name": "modele_certificat_domaine_id_domaine_id_fk",
+          "tableFrom": "modele_certificat",
+          "tableTo": "domaine",
+          "columnsFrom": [
+            "domaine_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.niveau_competence": {
+      "name": "niveau_competence",
+      "schema": "",
+      "columns": {
+        "utilisateur_id": {
+          "name": "utilisateur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "competence_id": {
+          "name": "competence_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "niveau": {
+          "name": "niveau",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "niveau_initial": {
+          "name": "niveau_initial",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "maj_le": {
+          "name": "maj_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "niveau_competence_utilisateur_id_utilisateur_id_fk": {
+          "name": "niveau_competence_utilisateur_id_utilisateur_id_fk",
+          "tableFrom": "niveau_competence",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "niveau_competence_competence_id_competence_id_fk": {
+          "name": "niveau_competence_competence_id_competence_id_fk",
+          "tableFrom": "niveau_competence",
+          "tableTo": "competence",
+          "columnsFrom": [
+            "competence_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "niveau_competence_utilisateur_id_competence_id_pk": {
+          "name": "niveau_competence_utilisateur_id_competence_id_pk",
+          "columns": [
+            "utilisateur_id",
+            "competence_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.notation": {
+      "name": "notation",
+      "schema": "",
+      "columns": {
+        "utilisateur_id": {
+          "name": "utilisateur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "formation_id": {
+          "name": "formation_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "note": {
+          "name": "note",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "maj_le": {
+          "name": "maj_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "notation_utilisateur_id_utilisateur_id_fk": {
+          "name": "notation_utilisateur_id_utilisateur_id_fk",
+          "tableFrom": "notation",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "notation_formation_id_formation_id_fk": {
+          "name": "notation_formation_id_formation_id_fk",
+          "tableFrom": "notation",
+          "tableTo": "formation",
+          "columnsFrom": [
+            "formation_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "notation_utilisateur_id_formation_id_pk": {
+          "name": "notation_utilisateur_id_formation_id_pk",
+          "columns": [
+            "utilisateur_id",
+            "formation_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.note_suivi": {
+      "name": "note_suivi",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "je_id": {
+          "name": "je_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "auteur_id": {
+          "name": "auteur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "contenu": {
+          "name": "contenu",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "note_suivi_je_idx": {
+          "name": "note_suivi_je_idx",
+          "columns": [
+            {
+              "expression": "je_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "cree_le",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "note_suivi_je_id_junior_entreprise_id_fk": {
+          "name": "note_suivi_je_id_junior_entreprise_id_fk",
+          "tableFrom": "note_suivi",
+          "tableTo": "junior_entreprise",
+          "columnsFrom": [
+            "je_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "note_suivi_auteur_id_utilisateur_id_fk": {
+          "name": "note_suivi_auteur_id_utilisateur_id_fk",
+          "tableFrom": "note_suivi",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "auteur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.notification": {
+      "name": "notification",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "utilisateur_id": {
+          "name": "utilisateur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "titre": {
+          "name": "titre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "message": {
+          "name": "message",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lien": {
+          "name": "lien",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "donnees": {
+          "name": "donnees",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::jsonb"
+        },
+        "lue": {
+          "name": "lue",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "cle_idempotence": {
+          "name": "cle_idempotence",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "notification_idx": {
+          "name": "notification_idx",
+          "columns": [
+            {
+              "expression": "utilisateur_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "lue",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "cree_le",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "notification_utilisateur_id_utilisateur_id_fk": {
+          "name": "notification_utilisateur_id_utilisateur_id_fk",
+          "tableFrom": "notification",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "notification_cle_idempotence_unique": {
+          "name": "notification_cle_idempotence_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "cle_idempotence"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.parametre": {
+      "name": "parametre",
+      "schema": "",
+      "columns": {
+        "cle": {
+          "name": "cle",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "valeur": {
+          "name": "valeur",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "maj_le": {
+          "name": "maj_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.parcours": {
+      "name": "parcours",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "titre": {
+          "name": "titre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sous_titre": {
+          "name": "sous_titre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "image_url": {
+          "name": "image_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "domaine_id": {
+          "name": "domaine_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "auteur_id": {
+          "name": "auteur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "statut": {
+          "name": "statut",
+          "type": "statut_contenu",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'BROUILLON'"
+        },
+        "motif_refus": {
+          "name": "motif_refus",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "soumis_le": {
+          "name": "soumis_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "publie_le": {
+          "name": "publie_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "valide_par_id": {
+          "name": "valide_par_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "modele_certificat_id": {
+          "name": "modele_certificat_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "intitule_certificat": {
+          "name": "intitule_certificat",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "maj_le": {
+          "name": "maj_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "parcours_domaine_id_domaine_id_fk": {
+          "name": "parcours_domaine_id_domaine_id_fk",
+          "tableFrom": "parcours",
+          "tableTo": "domaine",
+          "columnsFrom": [
+            "domaine_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "parcours_auteur_id_utilisateur_id_fk": {
+          "name": "parcours_auteur_id_utilisateur_id_fk",
+          "tableFrom": "parcours",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "auteur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "parcours_modele_certificat_id_modele_certificat_id_fk": {
+          "name": "parcours_modele_certificat_id_modele_certificat_id_fk",
+          "tableFrom": "parcours",
+          "tableTo": "modele_certificat",
+          "columnsFrom": [
+            "modele_certificat_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "parcours_slug_unique": {
+          "name": "parcours_slug_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "slug"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.participation_externe": {
+      "name": "participation_externe",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "formation_externe_id": {
+          "name": "formation_externe_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "utilisateur_id": {
+          "name": "utilisateur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "evaluation_formateur": {
+          "name": "evaluation_formateur",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::jsonb"
+        },
+        "score_test": {
+          "name": "score_test",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "auto_eval_initiale_id": {
+          "name": "auto_eval_initiale_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "auto_eval_finale_id": {
+          "name": "auto_eval_finale_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "calcule_le": {
+          "name": "calcule_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "participation_externe_uq": {
+          "name": "participation_externe_uq",
+          "columns": [
+            {
+              "expression": "formation_externe_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "utilisateur_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "participation_externe_formation_externe_id_formation_externe_id_fk": {
+          "name": "participation_externe_formation_externe_id_formation_externe_id_fk",
+          "tableFrom": "participation_externe",
+          "tableTo": "formation_externe",
+          "columnsFrom": [
+            "formation_externe_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "participation_externe_utilisateur_id_utilisateur_id_fk": {
+          "name": "participation_externe_utilisateur_id_utilisateur_id_fk",
+          "tableFrom": "participation_externe",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.point_quiz": {
+      "name": "point_quiz",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "formation_id": {
+          "name": "formation_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "type_quiz",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'INTEGRE'"
+        },
+        "temps_sec": {
+          "name": "temps_sec",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "titre": {
+          "name": "titre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "point_quiz_formation_idx": {
+          "name": "point_quiz_formation_idx",
+          "columns": [
+            {
+              "expression": "formation_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "point_quiz_formation_id_formation_id_fk": {
+          "name": "point_quiz_formation_id_formation_id_fk",
+          "tableFrom": "point_quiz",
+          "tableTo": "formation",
+          "columnsFrom": [
+            "formation_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.progression": {
+      "name": "progression",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "utilisateur_id": {
+          "name": "utilisateur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "formation_id": {
+          "name": "formation_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "position_sec": {
+          "name": "position_sec",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "segments": {
+          "name": "segments",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "secondes_vues": {
+          "name": "secondes_vues",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "sauts": {
+          "name": "sauts",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "quiz_en_cours_id": {
+          "name": "quiz_en_cours_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "seuil_atteint": {
+          "name": "seuil_atteint",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "statut": {
+          "name": "statut",
+          "type": "statut_progression",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'EN_COURS'"
+        },
+        "demarree_le": {
+          "name": "demarree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "derniere_sync_le": {
+          "name": "derniere_sync_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "terminee_le": {
+          "name": "terminee_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "relance_froid_le": {
+          "name": "relance_froid_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "progression_uq": {
+          "name": "progression_uq",
+          "columns": [
+            {
+              "expression": "utilisateur_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "formation_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "progression_utilisateur_id_utilisateur_id_fk": {
+          "name": "progression_utilisateur_id_utilisateur_id_fk",
+          "tableFrom": "progression",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "progression_formation_id_formation_id_fk": {
+          "name": "progression_formation_id_formation_id_fk",
+          "tableFrom": "progression",
+          "tableTo": "formation",
+          "columnsFrom": [
+            "formation_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.question": {
+      "name": "question",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "point_quiz_id": {
+          "name": "point_quiz_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "type_question",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'CHOIX_UNIQUE'"
+        },
+        "enonce": {
+          "name": "enonce",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "options": {
+          "name": "options",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "explication": {
+          "name": "explication",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "competence_id": {
+          "name": "competence_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ordre": {
+          "name": "ordre",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "question_point_quiz_id_point_quiz_id_fk": {
+          "name": "question_point_quiz_id_point_quiz_id_fk",
+          "tableFrom": "question",
+          "tableTo": "point_quiz",
+          "columnsFrom": [
+            "point_quiz_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "question_competence_id_competence_id_fk": {
+          "name": "question_competence_id_competence_id_fk",
+          "tableFrom": "question",
+          "tableTo": "competence",
+          "columnsFrom": [
+            "competence_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.reponse_auto_evaluation": {
+      "name": "reponse_auto_evaluation",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "auto_evaluation_id": {
+          "name": "auto_evaluation_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "competence_id": {
+          "name": "competence_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "valeur": {
+          "name": "valeur",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "inconnu": {
+          "name": "inconnu",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "expire": {
+          "name": "expire",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "duree_ms": {
+          "name": "duree_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        }
+      },
+      "indexes": {
+        "reponse_auto_eval_uq": {
+          "name": "reponse_auto_eval_uq",
+          "columns": [
+            {
+              "expression": "auto_evaluation_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "competence_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "reponse_auto_evaluation_auto_evaluation_id_auto_evaluation_id_fk": {
+          "name": "reponse_auto_evaluation_auto_evaluation_id_auto_evaluation_id_fk",
+          "tableFrom": "reponse_auto_evaluation",
+          "tableTo": "auto_evaluation",
+          "columnsFrom": [
+            "auto_evaluation_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "reponse_auto_evaluation_competence_id_competence_id_fk": {
+          "name": "reponse_auto_evaluation_competence_id_competence_id_fk",
+          "tableFrom": "reponse_auto_evaluation",
+          "tableTo": "competence",
+          "columnsFrom": [
+            "competence_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.signalement": {
+      "name": "signalement",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "commentaire_id": {
+          "name": "commentaire_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "auteur_id": {
+          "name": "auteur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "motif": {
+          "name": "motif",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "details": {
+          "name": "details",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "statut": {
+          "name": "statut",
+          "type": "statut_signalement",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'OUVERT'"
+        },
+        "traite_par_id": {
+          "name": "traite_par_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "traite_le": {
+          "name": "traite_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "signalement_uq": {
+          "name": "signalement_uq",
+          "columns": [
+            {
+              "expression": "commentaire_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "auteur_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "signalement_commentaire_id_commentaire_id_fk": {
+          "name": "signalement_commentaire_id_commentaire_id_fk",
+          "tableFrom": "signalement",
+          "tableTo": "commentaire",
+          "columnsFrom": [
+            "commentaire_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "signalement_auteur_id_utilisateur_id_fk": {
+          "name": "signalement_auteur_id_utilisateur_id_fk",
+          "tableFrom": "signalement",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "auteur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "signalement_traite_par_id_utilisateur_id_fk": {
+          "name": "signalement_traite_par_id_utilisateur_id_fk",
+          "tableFrom": "signalement",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "traite_par_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.tentative_quiz": {
+      "name": "tentative_quiz",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "utilisateur_id": {
+          "name": "utilisateur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "point_quiz_id": {
+          "name": "point_quiz_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reponses": {
+          "name": "reponses",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "score": {
+          "name": "score",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reussi": {
+          "name": "reussi",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "numero": {
+          "name": "numero",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "tentative_quiz_idx": {
+          "name": "tentative_quiz_idx",
+          "columns": [
+            {
+              "expression": "utilisateur_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "point_quiz_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "tentative_quiz_utilisateur_id_utilisateur_id_fk": {
+          "name": "tentative_quiz_utilisateur_id_utilisateur_id_fk",
+          "tableFrom": "tentative_quiz",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "tentative_quiz_point_quiz_id_point_quiz_id_fk": {
+          "name": "tentative_quiz_point_quiz_id_point_quiz_id_fk",
+          "tableFrom": "tentative_quiz",
+          "tableTo": "point_quiz",
+          "columnsFrom": [
+            "point_quiz_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.utilisateur": {
+      "name": "utilisateur",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mot_de_passe_hash": {
+          "name": "mot_de_passe_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "google_id": {
+          "name": "google_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "prenom": {
+          "name": "prenom",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nom": {
+          "name": "nom",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "photo_url": {
+          "name": "photo_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "roles": {
+          "name": "roles",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "ARRAY['MEMBRE']::text[]"
+        },
+        "actif": {
+          "name": "actif",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "email_verifie_le": {
+          "name": "email_verifie_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "je_id": {
+          "name": "je_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rattachement": {
+          "name": "rattachement",
+          "type": "statut_rattachement",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'EN_ATTENTE'"
+        },
+        "poste": {
+          "name": "poste",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "departement": {
+          "name": "departement",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bio": {
+          "name": "bio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "linkedin": {
+          "name": "linkedin",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "reseaux": {
+          "name": "reseaux",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::jsonb"
+        },
+        "whatsapp": {
+          "name": "whatsapp",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "visible_annuaire": {
+          "name": "visible_annuaire",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "masquer_stats": {
+          "name": "masquer_stats",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "xp": {
+          "name": "xp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "temps_actif_sec": {
+          "name": "temps_actif_sec",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "dernier_battement": {
+          "name": "dernier_battement",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dernier_acces": {
+          "name": "dernier_acces",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "maj_le": {
+          "name": "maj_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "utilisateur_je_idx": {
+          "name": "utilisateur_je_idx",
+          "columns": [
+            {
+              "expression": "je_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "utilisateur_je_id_junior_entreprise_id_fk": {
+          "name": "utilisateur_je_id_junior_entreprise_id_fk",
+          "tableFrom": "utilisateur",
+          "tableTo": "junior_entreprise",
+          "columnsFrom": [
+            "je_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "utilisateur_email_unique": {
+          "name": "utilisateur_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        },
+        "utilisateur_google_id_unique": {
+          "name": "utilisateur_google_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "google_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.vote_demande_formation": {
+      "name": "vote_demande_formation",
+      "schema": "",
+      "columns": {
+        "demande_id": {
+          "name": "demande_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "utilisateur_id": {
+          "name": "utilisateur_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cree_le": {
+          "name": "cree_le",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "vote_demande_formation_demande_id_demande_formation_id_fk": {
+          "name": "vote_demande_formation_demande_id_demande_formation_id_fk",
+          "tableFrom": "vote_demande_formation",
+          "tableTo": "demande_formation",
+          "columnsFrom": [
+            "demande_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "vote_demande_formation_utilisateur_id_utilisateur_id_fk": {
+          "name": "vote_demande_formation_utilisateur_id_utilisateur_id_fk",
+          "tableFrom": "vote_demande_formation",
+          "tableTo": "utilisateur",
+          "columnsFrom": [
+            "utilisateur_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "vote_demande_formation_demande_id_utilisateur_id_pk": {
+          "name": "vote_demande_formation_demande_id_utilisateur_id_pk",
+          "columns": [
+            "demande_id",
+            "utilisateur_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.contexte_auto_evaluation": {
+      "name": "contexte_auto_evaluation",
+      "schema": "public",
+      "values": [
+        "INITIALE",
+        "FINALE",
+        "LIBRE"
+      ]
+    },
+    "public.niveau_formation": {
+      "name": "niveau_formation",
+      "schema": "public",
+      "values": [
+        "DEBUTANT",
+        "INTERMEDIAIRE",
+        "AVANCE"
+      ]
+    },
+    "public.statut_contenu": {
+      "name": "statut_contenu",
+      "schema": "public",
+      "values": [
+        "BROUILLON",
+        "EN_VALIDATION",
+        "PUBLIE",
+        "REFUSE",
+        "ARCHIVE"
+      ]
+    },
+    "public.statut_demande": {
+      "name": "statut_demande",
+      "schema": "public",
+      "values": [
+        "OUVERTE",
+        "PLANIFIEE",
+        "SATISFAITE",
+        "REFUSEE"
+      ]
+    },
+    "public.statut_progression": {
+      "name": "statut_progression",
+      "schema": "public",
+      "values": [
+        "EN_COURS",
+        "ENQUETE_REQUISE",
+        "TERMINEE"
+      ]
+    },
+    "public.statut_rattachement": {
+      "name": "statut_rattachement",
+      "schema": "public",
+      "values": [
+        "EN_ATTENTE",
+        "VALIDE",
+        "REFUSE"
+      ]
+    },
+    "public.statut_signalement": {
+      "name": "statut_signalement",
+      "schema": "public",
+      "values": [
+        "OUVERT",
+        "MASQUE",
+        "REJETE"
+      ]
+    },
+    "public.type_enquete": {
+      "name": "type_enquete",
+      "schema": "public",
+      "values": [
+        "CHAUD",
+        "FROID"
+      ]
+    },
+    "public.type_question": {
+      "name": "type_question",
+      "schema": "public",
+      "values": [
+        "CHOIX_UNIQUE",
+        "CHOIX_MULTIPLE",
+        "VRAI_FAUX"
+      ]
+    },
+    "public.type_quiz": {
+      "name": "type_quiz",
+      "schema": "public",
+      "values": [
+        "INTEGRE",
+        "FINAL"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

@@ -1,0 +1,16 @@
+# PostgreSQL local pour Cursus : `docker compose up -d`
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: cursus
+    ports:
+      - "5432:5432"
+    volumes:
+      - cursus_pg:/var/lib/postgresql/data
+      - ./scripts/init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql:ro
+volumes:
+  cursus_pg:

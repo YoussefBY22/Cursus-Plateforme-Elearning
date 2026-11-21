@@ -1,0 +1,316 @@
+@import "tailwindcss";
+
+/* `dark:` suit le thème choisi (data-theme) ou, à défaut, le système. */
+@custom-variant dark {
+  &:where([data-theme="sombre"], [data-theme="sombre"] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme="clair"]), :root:not([data-theme="clair"]) *) {
+      @slot;
+    }
+  }
+}
+
+/*
+ * Charte de Cursus — indigo en accent, encre bleu-violet profond pour les
+ * aplats de marque, turquoise en renfort :
+ *  - Indigo  #4f46e5  → action principale, progression, accent
+ *  - Encre   #0f1226  → barre latérale, carte joueur, texte profond
+ *
+ * Toute couleur a sa définition sur `:root` (clair) ; les blocs sombres ne
+ * font que REDÉFINIR. Thème : data-theme="clair" | "sombre" | absent (= système).
+ */
+
+:root {
+  --background: #f4f5fa;
+  --foreground: #12142b;
+  --card: #ffffff;
+  --card-foreground: #12142b;
+  --muted: #e9eaf4;
+  --muted-foreground: #5a5f80;
+  --border: #d9dbea;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-foreground: #ffffff;
+  --primary-soft: #eef0ff;
+  --nuit: #0f1226;
+  --nuit-2: #181c3a;
+  --nuit-3: #272d5c;
+  --nuit-foreground: #e7e9f7;
+  --sidebar: #0f1226;
+  --sidebar-foreground: #c7cbe6;
+  --sidebar-muted: #8087b8;
+  --ring: #4f46e5;
+  --success: #12a150;
+  --success-soft: #e3f6eb;
+  --warning: #c77c00;
+  --warning-soft: #fdf1dc;
+  --danger: #b42318;
+  --danger-soft: #fbe9e7;
+  --or: #e2a400;
+  --or-soft: #fdf3d6;
+  --turquoise: #1e7a86;
+  --ombre: 0 1px 2px rgb(15 18 38 / 0.06), 0 1px 1px rgb(15 18 38 / 0.04);
+  --ombre-haute: 0 12px 32px -12px rgb(15 18 38 / 0.28);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="clair"]) {
+    --background: #0a0c1e;
+    --foreground: #e8eaf7;
+    --card: #121533;
+    --card-foreground: #e8eaf7;
+    --muted: #1a1e42;
+    --muted-foreground: #9ea3c8;
+    --border: #2a2f5e;
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
+    --primary-foreground: #ffffff;
+    --primary-soft: #1e2150;
+    --nuit: #080a18;
+    --nuit-2: #121533;
+    --nuit-3: #272d5c;
+    --sidebar: #080a18;
+    --sidebar-foreground: #c7cbe6;
+    --sidebar-muted: #8087b8;
+    --ring: #6366f1;
+    --success: #34c472;
+    --success-soft: #0b3322;
+    --warning: #f0a020;
+    --warning-soft: #3a2a08;
+    --danger: #ff6b5e;
+    --danger-soft: #3d1410;
+    --or: #f5bf2a;
+    --or-soft: #3a2f0a;
+    --turquoise: #4fb3c0;
+    --ombre: 0 1px 2px rgb(0 0 0 / 0.3);
+    --ombre-haute: 0 12px 32px -12px rgb(0 0 0 / 0.6);
+  }
+}
+
+:root[data-theme="sombre"] {
+  --background: #0a0c1e;
+  --foreground: #e8eaf7;
+  --card: #121533;
+  --card-foreground: #e8eaf7;
+  --muted: #1a1e42;
+  --muted-foreground: #9ea3c8;
+  --border: #2a2f5e;
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --primary-foreground: #ffffff;
+  --primary-soft: #1e2150;
+  --nuit: #080a18;
+  --nuit-2: #121533;
+  --nuit-3: #272d5c;
+  --sidebar: #080a18;
+  --sidebar-foreground: #c7cbe6;
+  --sidebar-muted: #8087b8;
+  --ring: #6366f1;
+  --success: #34c472;
+  --success-soft: #0b3322;
+  --warning: #f0a020;
+  --warning-soft: #3a2a08;
+  --danger: #ff6b5e;
+  --danger-soft: #3d1410;
+  --or: #f5bf2a;
+  --or-soft: #3a2f0a;
+  --turquoise: #4fb3c0;
+  --ombre: 0 1px 2px rgb(0 0 0 / 0.3);
+  --ombre-haute: 0 12px 32px -12px rgb(0 0 0 / 0.6);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-nuit: var(--nuit);
+  --color-nuit-2: var(--nuit-2);
+  --color-nuit-3: var(--nuit-3);
+  --color-nuit-foreground: var(--nuit-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-muted: var(--sidebar-muted);
+  --color-ring: var(--ring);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-or: var(--or);
+  --color-or-soft: var(--or-soft);
+  --color-turquoise: var(--turquoise);
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --shadow-doux: var(--ombre);
+  --shadow-haut: var(--ombre-haute);
+  --ease-ressort: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-sortie: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-feature-settings: "lnum" 1;
+}
+
+/* Chiffres alignés partout où l'on compare des nombres. */
+.chiffres {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* Titres : Montserrat très grasse, approche resserrée — la signature de la charte. */
+.titre-page {
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--primary) 22%, transparent);
+}
+
+/* Le basculement de thème ne doit pas déclencher d'animation de transition. */
+:root[data-theme-transition="off"] * {
+  transition: none !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* Animations partagées                                                */
+/* ------------------------------------------------------------------ */
+
+@keyframes apparition {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes apparition-echelle {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes glissement-droite {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pulsation {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+@keyframes chatoiement {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+@keyframes rotation {
+  to { transform: rotate(360deg); }
+}
+@keyframes rebond-cloche {
+  0%, 100% { transform: rotate(0); }
+  20% { transform: rotate(14deg); }
+  40% { transform: rotate(-12deg); }
+  60% { transform: rotate(8deg); }
+  80% { transform: rotate(-4deg); }
+}
+@keyframes trace {
+  from { stroke-dashoffset: var(--longueur, 1000); }
+  to { stroke-dashoffset: 0; }
+}
+
+.anim-apparition { animation: apparition 420ms var(--ease-sortie) both; }
+.anim-echelle { animation: apparition-echelle 380ms var(--ease-ressort) both; }
+.anim-glissement { animation: glissement-droite 420ms var(--ease-sortie) both; }
+
+/* Squelette de chargement. */
+.squelette {
+  background: linear-gradient(90deg, var(--muted) 0%, color-mix(in srgb, var(--muted) 55%, var(--card)) 50%, var(--muted) 100%);
+  background-size: 200% 100%;
+  animation: chatoiement 1.4s linear infinite;
+  border-radius: 0.75rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Badges : effets de rareté                                            */
+/* ------------------------------------------------------------------ */
+
+@keyframes balayage-brillance {
+  0% { transform: translateX(-130%) rotate(20deg); }
+  60%, 100% { transform: translateX(230%) rotate(20deg); }
+}
+@keyframes flamme {
+  0%, 100% { transform: scaleY(1) translateY(0); opacity: 0.9; }
+  50% { transform: scaleY(1.18) translateY(-3%); opacity: 1; }
+}
+@keyframes eclair {
+  0%, 92%, 100% { opacity: 0; }
+  93%, 97% { opacity: 1; }
+  95% { opacity: 0.2; }
+}
+@keyframes feuille {
+  0% { transform: translate(0, 0) rotate(0); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translate(var(--dx, 12px), 46px) rotate(220deg); opacity: 0; }
+}
+@keyframes givre {
+  0%, 100% { opacity: 0.35; filter: blur(0.5px); }
+  50% { opacity: 0.9; filter: blur(0); }
+}
+@keyframes cosmos {
+  to { transform: rotate(360deg); }
+}
+@keyframes etincelle {
+  0%, 100% { opacity: 0; transform: scale(0.3); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+.effet-brillance::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.65), transparent);
+  animation: balayage-brillance 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Célébration                                                          */
+/* ------------------------------------------------------------------ */
+
+@keyframes confetti {
+  0% { transform: translate3d(0, 0, 0) rotate(0); opacity: 1; }
+  100% { transform: translate3d(var(--x), var(--y), 0) rotate(var(--r)); opacity: 0; }
+}
+@keyframes halo {
+  0% { transform: scale(0.6); opacity: 0.8; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+@keyframes entree-badge {
+  0% { transform: scale(0.2) rotate(-25deg); opacity: 0; }
+  60% { transform: scale(1.12) rotate(6deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
